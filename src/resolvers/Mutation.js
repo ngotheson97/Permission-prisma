@@ -31,11 +31,9 @@ const Mutation = {
     }
   },
   createDraft: async (parent, { title, content }, context) => {
-    const userId = getUserId(context)
     return context.prisma.createPost({
       title,
       content,
-      author: { connect: { id: userId } },
     })
   },
   deletePost: async (parent, { id }, context) => {

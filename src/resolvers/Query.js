@@ -6,7 +6,7 @@ const Query = {
     return context.prisma.user({ id: userId })
   },
   feed: (parent, args, context) => {
-    return context.prisma.posts({ where: { published: true } })
+    return context.prisma.posts()
   },
   filterPosts: (parent, { searchString }, context) => {
     return context.prisma.posts({

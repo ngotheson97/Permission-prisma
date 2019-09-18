@@ -7,7 +7,7 @@
 Clone the repository:
 
 ````bash
-git clone https://git.dora.edu.vn/ngotheson97/permission-prisma.git
+git clone https://git.dora.edu.vn/sonn68/permission-prisma.git
 ````
 
 Install Node dependencies:
