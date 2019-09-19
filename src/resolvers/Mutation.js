@@ -36,6 +36,23 @@ const Mutation = {
       content,
     })
   },
+  createUnit: async (parent, { unit, id_lesson }, context) => {
+    return context.prisma.createUnit({
+      unit,
+      lessons: { connect: { id: id_lesson } },
+    })
+  },
+  createLesson: async (parent, { title }, context) => {
+    return context.prisma.createLesson({
+      title
+    })
+  },
+  createClass: async (parent, { name, id_unit }, context) => {
+    return context.prisma.createClass({
+      name,
+      units: { connect: { id: id_unit } },
+    })
+  },
   deletePost: async (parent, { id }, context) => {
     return context.prisma.deletePost({ id })
   },

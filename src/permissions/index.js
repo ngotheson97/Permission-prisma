@@ -14,7 +14,6 @@ const rules = {
 
 const permissions = shield({
   Query: {
-    me: rules.permissionView,
     filterPosts: rules.permissionView,
     post: rules.permissionView,
     feed: rules.permissionView,

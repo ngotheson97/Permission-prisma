@@ -8,6 +8,29 @@ const Query = {
   feed: (parent, args, context) => {
     return context.prisma.posts()
   },
+  getclass: (parent, args, context) => {
+    const fragment = `
+      fragment ClassWithUnit on Class {
+        id
+        name
+        units {
+          id
+          unit
+          lessons{
+            id
+            title
+          }
+        }
+      }
+      `
+    return context.prisma.classes().$fragment(fragment)
+  },
+  unit: (parent, args, context) => {
+    return context.prisma.units()
+  },
+  lesson: (parent, args, context) => {
+    return context.prisma.lessons()
+  },
   filterPosts: (parent, { searchString }, context) => {
     return context.prisma.posts({
       where: {

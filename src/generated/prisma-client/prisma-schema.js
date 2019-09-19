@@ -3,7 +3,19 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregatePost {
+/* GraphQL */ `type AggregateClass {
+  count: Int!
+}
+
+type AggregateLesson {
+  count: Int!
+}
+
+type AggregatePost {
+  count: Int!
+}
+
+type AggregateUnit {
   count: Int!
 }
 
@@ -15,17 +27,310 @@ type BatchPayload {
   count: Long!
 }
 
+type Class {
+  id: ID!
+  name: String!
+  units(where: UnitWhereInput, orderBy: UnitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Unit!]
+}
+
+type ClassConnection {
+  pageInfo: PageInfo!
+  edges: [ClassEdge]!
+  aggregate: AggregateClass!
+}
+
+input ClassCreateInput {
+  id: ID
+  name: String!
+  units: UnitCreateManyInput
+}
+
+type ClassEdge {
+  node: Class!
+  cursor: String!
+}
+
+enum ClassOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+}
+
+type ClassPreviousValues {
+  id: ID!
+  name: String!
+}
+
+type ClassSubscriptionPayload {
+  mutation: MutationType!
+  node: Class
+  updatedFields: [String!]
+  previousValues: ClassPreviousValues
+}
+
+input ClassSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ClassWhereInput
+  AND: [ClassSubscriptionWhereInput!]
+  OR: [ClassSubscriptionWhereInput!]
+  NOT: [ClassSubscriptionWhereInput!]
+}
+
+input ClassUpdateInput {
+  name: String
+  units: UnitUpdateManyInput
+}
+
+input ClassUpdateManyMutationInput {
+  name: String
+}
+
+input ClassWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  units_every: UnitWhereInput
+  units_some: UnitWhereInput
+  units_none: UnitWhereInput
+  AND: [ClassWhereInput!]
+  OR: [ClassWhereInput!]
+  NOT: [ClassWhereInput!]
+}
+
+input ClassWhereUniqueInput {
+  id: ID
+}
+
 scalar DateTime
+
+type Lesson {
+  id: ID!
+  title: String!
+}
+
+type LessonConnection {
+  pageInfo: PageInfo!
+  edges: [LessonEdge]!
+  aggregate: AggregateLesson!
+}
+
+input LessonCreateInput {
+  id: ID
+  title: String!
+}
+
+input LessonCreateManyInput {
+  create: [LessonCreateInput!]
+  connect: [LessonWhereUniqueInput!]
+}
+
+type LessonEdge {
+  node: Lesson!
+  cursor: String!
+}
+
+enum LessonOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+}
+
+type LessonPreviousValues {
+  id: ID!
+  title: String!
+}
+
+input LessonScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  AND: [LessonScalarWhereInput!]
+  OR: [LessonScalarWhereInput!]
+  NOT: [LessonScalarWhereInput!]
+}
+
+type LessonSubscriptionPayload {
+  mutation: MutationType!
+  node: Lesson
+  updatedFields: [String!]
+  previousValues: LessonPreviousValues
+}
+
+input LessonSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: LessonWhereInput
+  AND: [LessonSubscriptionWhereInput!]
+  OR: [LessonSubscriptionWhereInput!]
+  NOT: [LessonSubscriptionWhereInput!]
+}
+
+input LessonUpdateDataInput {
+  title: String
+}
+
+input LessonUpdateInput {
+  title: String
+}
+
+input LessonUpdateManyDataInput {
+  title: String
+}
+
+input LessonUpdateManyInput {
+  create: [LessonCreateInput!]
+  update: [LessonUpdateWithWhereUniqueNestedInput!]
+  upsert: [LessonUpsertWithWhereUniqueNestedInput!]
+  delete: [LessonWhereUniqueInput!]
+  connect: [LessonWhereUniqueInput!]
+  set: [LessonWhereUniqueInput!]
+  disconnect: [LessonWhereUniqueInput!]
+  deleteMany: [LessonScalarWhereInput!]
+  updateMany: [LessonUpdateManyWithWhereNestedInput!]
+}
+
+input LessonUpdateManyMutationInput {
+  title: String
+}
+
+input LessonUpdateManyWithWhereNestedInput {
+  where: LessonScalarWhereInput!
+  data: LessonUpdateManyDataInput!
+}
+
+input LessonUpdateWithWhereUniqueNestedInput {
+  where: LessonWhereUniqueInput!
+  data: LessonUpdateDataInput!
+}
+
+input LessonUpsertWithWhereUniqueNestedInput {
+  where: LessonWhereUniqueInput!
+  update: LessonUpdateDataInput!
+  create: LessonCreateInput!
+}
+
+input LessonWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  AND: [LessonWhereInput!]
+  OR: [LessonWhereInput!]
+  NOT: [LessonWhereInput!]
+}
+
+input LessonWhereUniqueInput {
+  id: ID
+}
 
 scalar Long
 
 type Mutation {
+  createClass(data: ClassCreateInput!): Class!
+  updateClass(data: ClassUpdateInput!, where: ClassWhereUniqueInput!): Class
+  updateManyClasses(data: ClassUpdateManyMutationInput!, where: ClassWhereInput): BatchPayload!
+  upsertClass(where: ClassWhereUniqueInput!, create: ClassCreateInput!, update: ClassUpdateInput!): Class!
+  deleteClass(where: ClassWhereUniqueInput!): Class
+  deleteManyClasses(where: ClassWhereInput): BatchPayload!
+  createLesson(data: LessonCreateInput!): Lesson!
+  updateLesson(data: LessonUpdateInput!, where: LessonWhereUniqueInput!): Lesson
+  updateManyLessons(data: LessonUpdateManyMutationInput!, where: LessonWhereInput): BatchPayload!
+  upsertLesson(where: LessonWhereUniqueInput!, create: LessonCreateInput!, update: LessonUpdateInput!): Lesson!
+  deleteLesson(where: LessonWhereUniqueInput!): Lesson
+  deleteManyLessons(where: LessonWhereInput): BatchPayload!
   createPost(data: PostCreateInput!): Post!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
   updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
   upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
   deletePost(where: PostWhereUniqueInput!): Post
   deleteManyPosts(where: PostWhereInput): BatchPayload!
+  createUnit(data: UnitCreateInput!): Unit!
+  updateUnit(data: UnitUpdateInput!, where: UnitWhereUniqueInput!): Unit
+  updateManyUnits(data: UnitUpdateManyMutationInput!, where: UnitWhereInput): BatchPayload!
+  upsertUnit(where: UnitWhereUniqueInput!, create: UnitCreateInput!, update: UnitUpdateInput!): Unit!
+  deleteUnit(where: UnitWhereUniqueInput!): Unit
+  deleteManyUnits(where: UnitWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -314,9 +619,18 @@ input PostWhereUniqueInput {
 }
 
 type Query {
+  class(where: ClassWhereUniqueInput!): Class
+  classes(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Class]!
+  classesConnection(where: ClassWhereInput, orderBy: ClassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClassConnection!
+  lesson(where: LessonWhereUniqueInput!): Lesson
+  lessons(where: LessonWhereInput, orderBy: LessonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lesson]!
+  lessonsConnection(where: LessonWhereInput, orderBy: LessonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LessonConnection!
   post(where: PostWhereUniqueInput!): Post
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
   postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
+  unit(where: UnitWhereUniqueInput!): Unit
+  units(where: UnitWhereInput, orderBy: UnitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Unit]!
+  unitsConnection(where: UnitWhereInput, orderBy: UnitOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UnitConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -329,8 +643,190 @@ enum Role {
 }
 
 type Subscription {
+  class(where: ClassSubscriptionWhereInput): ClassSubscriptionPayload
+  lesson(where: LessonSubscriptionWhereInput): LessonSubscriptionPayload
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
+  unit(where: UnitSubscriptionWhereInput): UnitSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type Unit {
+  id: ID!
+  unit: String!
+  lessons(where: LessonWhereInput, orderBy: LessonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lesson!]
+}
+
+type UnitConnection {
+  pageInfo: PageInfo!
+  edges: [UnitEdge]!
+  aggregate: AggregateUnit!
+}
+
+input UnitCreateInput {
+  id: ID
+  unit: String!
+  lessons: LessonCreateManyInput
+}
+
+input UnitCreateManyInput {
+  create: [UnitCreateInput!]
+  connect: [UnitWhereUniqueInput!]
+}
+
+type UnitEdge {
+  node: Unit!
+  cursor: String!
+}
+
+enum UnitOrderByInput {
+  id_ASC
+  id_DESC
+  unit_ASC
+  unit_DESC
+}
+
+type UnitPreviousValues {
+  id: ID!
+  unit: String!
+}
+
+input UnitScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  unit: String
+  unit_not: String
+  unit_in: [String!]
+  unit_not_in: [String!]
+  unit_lt: String
+  unit_lte: String
+  unit_gt: String
+  unit_gte: String
+  unit_contains: String
+  unit_not_contains: String
+  unit_starts_with: String
+  unit_not_starts_with: String
+  unit_ends_with: String
+  unit_not_ends_with: String
+  AND: [UnitScalarWhereInput!]
+  OR: [UnitScalarWhereInput!]
+  NOT: [UnitScalarWhereInput!]
+}
+
+type UnitSubscriptionPayload {
+  mutation: MutationType!
+  node: Unit
+  updatedFields: [String!]
+  previousValues: UnitPreviousValues
+}
+
+input UnitSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UnitWhereInput
+  AND: [UnitSubscriptionWhereInput!]
+  OR: [UnitSubscriptionWhereInput!]
+  NOT: [UnitSubscriptionWhereInput!]
+}
+
+input UnitUpdateDataInput {
+  unit: String
+  lessons: LessonUpdateManyInput
+}
+
+input UnitUpdateInput {
+  unit: String
+  lessons: LessonUpdateManyInput
+}
+
+input UnitUpdateManyDataInput {
+  unit: String
+}
+
+input UnitUpdateManyInput {
+  create: [UnitCreateInput!]
+  update: [UnitUpdateWithWhereUniqueNestedInput!]
+  upsert: [UnitUpsertWithWhereUniqueNestedInput!]
+  delete: [UnitWhereUniqueInput!]
+  connect: [UnitWhereUniqueInput!]
+  set: [UnitWhereUniqueInput!]
+  disconnect: [UnitWhereUniqueInput!]
+  deleteMany: [UnitScalarWhereInput!]
+  updateMany: [UnitUpdateManyWithWhereNestedInput!]
+}
+
+input UnitUpdateManyMutationInput {
+  unit: String
+}
+
+input UnitUpdateManyWithWhereNestedInput {
+  where: UnitScalarWhereInput!
+  data: UnitUpdateManyDataInput!
+}
+
+input UnitUpdateWithWhereUniqueNestedInput {
+  where: UnitWhereUniqueInput!
+  data: UnitUpdateDataInput!
+}
+
+input UnitUpsertWithWhereUniqueNestedInput {
+  where: UnitWhereUniqueInput!
+  update: UnitUpdateDataInput!
+  create: UnitCreateInput!
+}
+
+input UnitWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  unit: String
+  unit_not: String
+  unit_in: [String!]
+  unit_not_in: [String!]
+  unit_lt: String
+  unit_lte: String
+  unit_gt: String
+  unit_gte: String
+  unit_contains: String
+  unit_not_contains: String
+  unit_starts_with: String
+  unit_not_starts_with: String
+  unit_ends_with: String
+  unit_not_ends_with: String
+  lessons_every: LessonWhereInput
+  lessons_some: LessonWhereInput
+  lessons_none: LessonWhereInput
+  AND: [UnitWhereInput!]
+  OR: [UnitWhereInput!]
+  NOT: [UnitWhereInput!]
+}
+
+input UnitWhereUniqueInput {
+  id: ID
 }
 
 type User {

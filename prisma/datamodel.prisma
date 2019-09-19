@@ -20,3 +20,20 @@ enum Role {
   ADMIN
   CUSTOMER
 }
+
+type Unit {
+    id: ID! @id
+    unit: String!
+    lessons: [Lesson!]!
+}
+
+type Lesson {
+  id: ID! @id
+  title: String!
+}
+
+type Class {
+  id: ID! @id
+  name: String!
+  units: [Unit!]!
+}

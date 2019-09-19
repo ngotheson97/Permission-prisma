@@ -5,10 +5,16 @@ type Query {
   feed: [Post!]!
   filterPosts(searchString: String): [Post!]!
   post(id: ID!): Post
+  getclass: [Class!]!
+  unit: [Unit!]!
+  lesson: [Lesson!]!
 }
 
 type Mutation {
   createDraft(title: String!, content: String): Post!
+  createUnit(unit: String!, id_lesson: ID!): Unit!
+  createLesson(title: String!): Lesson!
+  createClass(name: String!, id_unit: ID!): Class!
   deletePost(id: ID!): Post
   publish(id: ID!): Post
   setPermission( permission: Role!): Permission
@@ -47,4 +53,21 @@ type User {
 enum Role {
   ADMIN
   CUSTOMER
+}
+
+type Unit {
+    id: ID!
+    unit: String!
+    lessons: [Lesson!]!
+}
+
+type Lesson {
+  id: ID!
+  title: String!
+}
+
+type Class {
+  id: ID!
+  name: String!
+  units: [Unit!]!
 }
